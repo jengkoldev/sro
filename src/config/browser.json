@@ -7,7 +7,7 @@
         "--disable-infobars",
         "--ignore-certifcate-errors",
         "--ignore-certifcate-errors-spki-list",
-        "--user-agent='Mozilla/5.0 (Android 8.1.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0'"
+        "--user-agent='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'"
     ],
     "ignoreDefaultArgs": ["--enable-automation"],
     "executablePath": "/opt/google/chrome/chrome",
