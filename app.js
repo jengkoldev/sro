@@ -2,57 +2,39 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 const config = require('./src/config/browser');
-const url = require('./src/config/url');
 const target = require('./src/config/target');
 
 // Time
 const Timer = require('./src/time/timer');
 
-// Auth
-const Auth = require('./src/auth/login');
-
 // Cart
+const Check = require('./src/cart/check');
 const Atc = require('./src/cart/atc');
-const Co = require('./src/cart/co');
 
 const App = async () => {
-    const browser = await puppeteer.launch(config);
+    const _BROWSER = await puppeteer.launch(config);
 
-    browser.on('targetcreated', async function f() {
-        let pages = await browser.pages();
+    _BROWSER.on('targetcreated', async function f() {
+        let pages = await _BROWSER.pages();
         if (pages.length > 1) {
             await pages[0].close();
-            browser.off('targetcreated', f);
+            _BROWSER.off('targetcreated', f);
         }
     });
 
-    // auth
-    const loginPage = await browser.newPage();
-    const atcP = await browser.newPage();
-    const coP = await browser.newPage();
+    const page = await _BROWSER.newPage();
+    page.on('console', message => console.log(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`))
+    await page.goto(target.cart, {waitUntil: 'networkidle2'});
 
-    await Auth(loginPage);
 
-    // goto pages
-    await atcP.goto(url.atc);
-    await coP.goto(url.co);
 
-    // // Timer
-    await Timer('42:50');
+    await Timer('47:30')
 
-    /**
-     * Cart
-     */
+    console.time('Atc')
+    await Check(page, target.link);
+    console.timeEnd('Atc')
 
-    await Atc(atcP, target, url.atc);
-
-    console.time('reload-co')
-    await coP.goto(url.co);
-    console.timeEnd('reload-co')
-
-    // console.time('co')
-    // await Co(coP, url.co);
-    // console.timeEnd('co')
+    await _BROWSER.close();
 }
 
 App();
