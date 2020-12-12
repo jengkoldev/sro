@@ -71,7 +71,6 @@ const Check = async (page, target) => {
                     .then(data => data.json())
                     .then(data => {
                       console.log(data)
-                      resolve(true)
                     });
                 })
             }
@@ -143,12 +142,11 @@ const Check = async (page, target) => {
                         let addonDealId = item.add_on_deal_info ? item.add_on_deal_info.add_on_deal_id : 0;
 
                         let fsPrice = models.find(function (post, index) {
-                            if (post.price.toString().indexOf('99') > -1 && post.stock != 0) {
+                            if (post.price.toString().indexOf('120') > -1 && post.stock != 0) {
                                 addCart(post.modelid, addonDealId);
                                 console.log('flash 12k')
                                 console.log(post.price)
                                 console.log(post.modelid)
-                                clearInterval(finder);
                                 return true;
                             } else {
                                 addCart(post.modelid, addonDealId);
