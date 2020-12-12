@@ -28,13 +28,13 @@ const App = async () => {
 
 
 
-    await Timer('59:50')
+    await Timer('19:50')
 
     console.time('Atc')
     await Check(page, target.link);
     console.timeEnd('Atc')
 
-    await _BROWSER.close();
+    // await _BROWSER.close();
 }
 
 App();

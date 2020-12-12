@@ -1,3 +1,6 @@
-2020/12/12-16:48:49.063 c93 Reusing MANIFEST /home/umar/Dev/Scrapping/SHOPEE/sro/data/wd2/Default/Local Storage/leveldb/MANIFEST-000001
-2020/12/12-16:48:49.064 c93 Recovering log #8
-2020/12/12-16:48:49.064 c93 Reusing old log /home/umar/Dev/Scrapping/SHOPEE/sro/data/wd2/Default/Local Storage/leveldb/000008.log 
+2020/12/12-20:18:52.489 ab6 Reusing MANIFEST /home/umar/Dev/Scrapping/SHOPEE/sro/data/wd2/Default/Local Storage/leveldb/MANIFEST-000001
+2020/12/12-20:18:52.490 ab6 Recovering log #10
+2020/12/12-20:18:52.491 ab6 Reusing old log /home/umar/Dev/Scrapping/SHOPEE/sro/data/wd2/Default/Local Storage/leveldb/000010.log 
+2020/12/12-20:20:54.526 ac7 Level-0 table #14: started
+2020/12/12-20:20:54.531 ac7 Level-0 table #14: 34773 bytes OK
+2020/12/12-20:20:54.534 ac7 Delete type=0 #10

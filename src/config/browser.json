@@ -1,5 +1,5 @@
 {
-    "headless": true,
+    "headless": false,
     "userDataDir": "data/wd2",
     "args": [
         "--no-sandbox",

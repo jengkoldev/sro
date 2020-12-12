@@ -43,7 +43,7 @@ const Check = async (page, target) => {
                 })
                 .then(data => data.json())
                 .then(data => {
-                    console.log("ini adalah getInfo");
+                    console.log("place order");
 
                     fetch("https://shopee.co.id/api/v2/checkout/place_order", {
                       "headers": {
@@ -143,7 +143,7 @@ const Check = async (page, target) => {
                         let addonDealId = item.add_on_deal_info ? item.add_on_deal_info.add_on_deal_id : 0;
 
                         let fsPrice = models.find(function (post, index) {
-                            if (post.price.toString().indexOf('12000') > -1 && post.stock != 0) {
+                            if (post.price.toString().indexOf('99') > -1 && post.stock != 0) {
                                 addCart(post.modelid, addonDealId);
                                 console.log('flash 12k')
                                 console.log(post.price)
@@ -151,6 +151,7 @@ const Check = async (page, target) => {
                                 clearInterval(finder);
                                 return true;
                             } else {
+                                addCart(post.modelid, addonDealId);
                                 console.log('no stock')
                             }
                         });
@@ -159,7 +160,7 @@ const Check = async (page, target) => {
                     } else {
                         console.log("finding fs...")
                     }
-                }, 100);
+                }, 500);
             });
         });
     }, target); // eval
