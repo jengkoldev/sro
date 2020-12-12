@@ -112,51 +112,54 @@ const Check = async (page, target) => {
                 })
             }
 
-            fetch(`https://shopee.co.id/api/v2/item/get?itemid=${itemId}&shopid=${shopId}`, {
-                "headers": {
-                "accept": "*/*",
-                "accept-language": "en-US,en;q=0.9,id;q=0.8",
-                "if-none-match": "22198a1c6227251c54555eb3a2a5c63c",
-                "if-none-match-": "55b03-9bf5ff811a9d5e6db47f6990ee2599b9",
-                "sec-fetch-dest": "empty",
-                "sec-fetch-mode": "cors",
-                "sec-fetch-site": "same-origin",
-                "x-api-source": "pc",
-                "x-requested-with": "XMLHttpRequest",
-                "x-shopee-language": "id",
-                "cookie": document.cookie,
-                },
-                "referrer": target,
-                "referrerPolicy": "strict-origin-when-cross-origin",
-                "body": null,
-                "method": "GET",
-                "mode": "cors"
-            })
-            .then(data => data.json())
-            .then(data => {
-                let fs = data.item.flash_sale;
+            let finder = setInterval(function () {
+                fetch(`https://shopee.co.id/api/v2/item/get?itemid=${itemId}&shopid=${shopId}`, {
+                    "headers": {
+                    "accept": "*/*",
+                    "accept-language": "en-US,en;q=0.9,id;q=0.8",
+                    "if-none-match": "22198a1c6227251c54555eb3a2a5c63c",
+                    "if-none-match-": "55b03-9bf5ff811a9d5e6db47f6990ee2599b9",
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-origin",
+                    "x-api-source": "pc",
+                    "x-requested-with": "XMLHttpRequest",
+                    "x-shopee-language": "id",
+                    "cookie": document.cookie,
+                    },
+                    "referrer": target,
+                    "referrerPolicy": "strict-origin-when-cross-origin",
+                    "body": null,
+                    "method": "GET",
+                    "mode": "cors"
+                })
+                .then(data => data.json())
+                .then(data => {
+                    let fs = data.item.flash_sale;
 
-                if (fs) {
-                    let item = data.item;
-                    let models = item.models;
-                    let addonDealId = item.add_on_deal_info ? item.add_on_deal_info.add_on_deal_id : 0;
+                    if (fs) {
+                        let item = data.item;
+                        let models = item.models;
+                        let addonDealId = item.add_on_deal_info ? item.add_on_deal_info.add_on_deal_id : 0;
 
-                    let fsPrice = models.find(function (post, index) {
-                        if (post.price.toString().indexOf('12000') > -1 && post.stock != 0) {
-                            addCart(post.modelid, addonDealId);
-                            console.log('flash 12k')
-                            console.log(post.price)
-                            console.log(post.modelid)
-                            return true;
-                        } else {
-                            console.log('no stock')
-                        }
-                    });
+                        let fsPrice = models.find(function (post, index) {
+                            if (post.price.toString().indexOf('12000') > -1 && post.stock != 0) {
+                                addCart(post.modelid, addonDealId);
+                                console.log('flash 12k')
+                                console.log(post.price)
+                                console.log(post.modelid)
+                                clearInterval(finder);
+                                return true;
+                            } else {
+                                console.log('no stock')
+                            }
+                        });
 
-                    console.log('flash sale')
-                } else {
-                    console.log("finding fs...")
-                }
+                        console.log('flash sale')
+                    } else {
+                        console.log("finding fs...")
+                    }
+                }, 100);
             });
         });
     }, target); // eval
